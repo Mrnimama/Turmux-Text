@@ -9,20 +9,20 @@ global.tiktokthub = 'https://telegra.ph/file/d83742c9e0a076364184e.jpg'
 global.pemilik = ['94715166712'] //Change  it , ඔබට කැමති නම් වෙනස් කරන්න
 global.premium = ['94715166712'] //Change it ඔබට කැමතිනම් වෙනස් කරන්න 
 global.pengguna = 'Dark Maker' // Your name ඔබේ නම 
-global.sessionName = process.env.SESSION || 'session'
+global.sessionName = 'session'
 global.prefa = ['#','!','/',''] 
 global.sp = '🔵'
 
 
 global.mess = {
-    success: process.env.SUCCESS_MSG || '✅ Done!',
-    admin: process.env.ADMIN_MSG || 'you must be admin to use this cmd!',
+    success: '✅ Done!',
+    admin: 'you must be admin to use this cmd!',
     botAdmin: 'Bot must be admin !',
     owner: 'This cmd is for Elisa bot owner only',
     group: 'oooh sorry this cmd is for groups only!',
     private: 'it can only used in dms!',
     bot: 'This cmd  its only for the bot host',
-    wait: process.env.WAIT_MSG || 'Wait Elisa bot processing ',
+    wait: 'Wait Elisa bot processing ',
     endLimit: 'Your Daily Limit Has Expired, The Limit Will Be Reset Every 12 Hours',
 }
 global.limitawal = {
@@ -42,8 +42,8 @@ global.limitawal = {
 
 
 //global api
-global.fbapi = process.env.EXTRA_API || 'dd79-1aeb-21a3'
-global.LANG = process.env.LANGUAGE || 'EN'
+global.fbapi = 'dd79-1aeb-21a3'
+global.LANG = 'EN'
 global.BOT_LANGUAGE = "EN"
 global.APIs = {
 	zenz: 'https://zenzapi.xyz', 
@@ -51,16 +51,12 @@ global.APIs = {
 global.APIKeys = {
 	'https://zenzapi.xyz': '01ABEB1E11', //Kalau habis beli sendiri
 }
-global.HEROKU = {
-    API: process.env.HEROKU_API,
-    NAME : process.env.APP_NAME,
-    STATUS : true
-}
-global.VOICE_REPLY = process.env.VOICE_REPLY || 'true'
-global.owner= [process.env.OWNER_NUMBER] || ['94715166712'] // Owner number , (අයිතිකරුගේ නම්බර් එක )
-global.alivelogo = process.env.ALIVE_LOGO || `https://telegra.ph/file/b3f17c16eedf99731a52d.jpg`
-global.alive = process.env.ALIVE_MESSAGE
-global.cap = process.env.CAPTION
+
+global.VOICE_REPLY = 'true'
+global.owner= ['94715166712'] // Owner number , (අයිතිකරුගේ නම්බර් එක )
+global.alivelogo = `https://telegra.ph/file/b3f17c16eedf99731a52d.jpg`
+global.alive = default
+global.cap = '© 𝙶𝙴𝙽𝙴𝚁𝙰𝚃𝙴𝙳 𝙱𝚈 𝚀𝚄𝙴𝙴𝙽 𝙴𝙻𝙸𝚂𝙰'
 global.AUTO_BIO = process.env.AUTO_BIO || 'on'
 global.INBOX_BLOCK = process.env.INBOX_BLOCK || 'off'
 global.AUTO_REACT = process.env.AUTO_REACT || 'true'
