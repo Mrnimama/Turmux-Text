@@ -57,6 +57,7 @@ global.limitawal = {
     premium: "Infinity",
     free: 25
 }
+/*
 global.thum = fs.readFileSync("./XeonMedia/theme/cheemspic.jpg") //ur thumb pic
 global.log0 = fs.readFileSync("./XeonMedia/theme/cheemspic.jpg") //ur logo pic
 global.err4r = fs.readFileSync("./XeonMedia/theme/cheemspic.jpg") //ur error pic
@@ -76,7 +77,7 @@ api:{
      speechtotext: ['897beebb3ac74ceeaa6f8d0903b2297a']
    }
    }
-
+*/
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
 	fs.unwatchFile(file)
