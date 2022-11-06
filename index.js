@@ -72,16 +72,7 @@ async function startXeonBotInc() {
 
     store.bind(XeonBotInc.ev)
     
-    // anticall auto block
-    XeonBotInc.ws.on('CB:call', async (json) => {
-    const callerId = json.content[0].attrs['call-creator']
-    if (json.content[0].tag == 'offer') {
-    let halal = await XeonBotInc.sendContact(callerId, global.owner)
-    XeonBotInc.sendMessage(callerId, { text: `*Automatic block system!*\n*Don't call bot*!\n*Please contact the owner to open !*`}, { quoted : halal })
-    await sleep(8000)
-    await XeonBotInc.updateBlockStatus(callerId, "block")
-    }
-    })
+  
 
     XeonBotInc.ev.on('messages.upsert', async chatUpdate => {
         //console.log(JSON.stringify(chatUpdate, undefined, 2))
@@ -93,35 +84,13 @@ async function startXeonBotInc() {
         if (!XeonBotInc.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
         if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
         m = smsg(XeonBotInc, mek, store)
-        require("./XeonCheems5")(XeonBotInc, m, chatUpdate, store)
+        require("./ElisaBot-V2")(XeonBotInc, m, chatUpdate, store)
         } catch (err) {
             console.log(err)
         }
     })
     
-    // Group Update
-    XeonBotInc.ev.on('groups.update', async pea => {
-       //console.log(pea)
-    // Get Profile Picture Group
-       try {
-       ppgc = await XeonBotInc.profilePictureUrl(pea[0].id, 'image')
-       } catch {
-       ppgc = 'https://shortlink.hisokaarridho.my.id/rg1oT'
-       }
-       let lolXeon = { url : ppgc }
-       if (pea[0].announce == true) {
-       XeonBotInc.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Closed By Admin, Now Only Admin Can Send Messages !`, `${botname}`, lolXeon, [])
-       } else if(pea[0].announce == false) {
-       XeonBotInc.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Opened By Admin, Now Participants Can Send Messages !`, `${botname}`, lolXeon, [])
-       } else if (pea[0].restrict == true) {
-       XeonBotInc.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Restricted, Now Only Admin Can Edit Group Info !`, `${botname}`, lolXeon, [])
-       } else if (pea[0].restrict == false) {
-       XeonBotInc.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Opened, Now Participants Can Edit Group Info !`, `${botname}`, lolXeon, [])
-       } else {
-       XeonBotInc.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Subject Has Been Changed To *${pea[0].subject}*`, `${botname}`, lolXeon, [])
-     }
-    })
-    
+       
         //randoming function
 function pickRandom(list) {
 return list[Math.floor(list.length * Math.random())]
@@ -151,114 +120,7 @@ let docs = pickRandom(documents)
                 }
 
                 //welcome\\
-        let nama = await XeonBotInc.getName(num)
-memb = metadata.participants.length
-XeonWlcm = await getBuffer(ppuser)
-XeonLft = await getBuffer(ppuser)
-                if (anu.action == 'add') {
-                const xeonbuffer = await getBuffer(ppuser)
-                let xeonName = num
-                const xtime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-	            const xdate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
-	            const xmembers = metadata.participants.length
-                let unicorndoc = {key: {fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid": "916909137213-1604595598@g.us"}, "message": {orderMessage: {itemCount: 9999999,status: 200, thumbnail: XeonWlcm, surface: 200, message: `${metadata.subject}`, orderTitle: 'xeon', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
-                xeonbody = `┌─❖
-│「 𝗛𝗶 👋 」
-└┬❖ 「 @${xeonName.split("@")[0]}  」
-   │✑  𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 
-   │✑  ${metadata.subject}
-   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
-   │✑ ${xmembers}th
-   │✑  𝗝𝗼𝗶𝗻𝗲𝗱 : 
-   │✑ ${xtime} ${xdate}
-   └───────────────┈ ⳹`
-let buttons = [
-{buttonId: `wkwwk`, buttonText: {displayText: 'Welcome 💐'}, type: 1}
-]
-let buttonMessage = {
-document: fs.readFileSync('./XeonMedia/theme/cheems.xlsx'),
-mimetype: docs,
-jpegThumbnail:XeonWlcm,
-mentions: [num],
-fileName: `${metadata.subject}`,
-fileLength: 99999999999999,
-caption: xeonbody,
-footer: `${botname}`,
-buttons: buttons,
-headerType: 4,
-contextInfo:{externalAdReply:{
-title: `${ownername}`,
-body: `Don't forget to read group description`,
-mediaType:2,
-thumbnail: XeonWlcm,
-sourceUrl: `${websitex}`,
-mediaUrl: `${websitex}`
-}}
-}
-XeonBotInc.sendMessage(anu.id, buttonMessage, {quoted:unicorndoc})
-                } else if (anu.action == 'remove') {
-                	const xeonbuffer = await getBuffer(ppuser)
-                    const xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-	                const xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
-                	let xeonName = num
-                    const xeonmembers = metadata.participants.length
-                    let unicorndoc = {key: {fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid": "916909137213-1604595598@g.us"}, "message": {orderMessage: {itemCount: 9999999,status: 200, thumbnail: xeonbuffer, surface: 200, message: `${metadata.subject}`, orderTitle: 'xeon', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
-                    xeonbody = `┌─❖
-│「 𝗚𝗼𝗼𝗱𝗯𝘆𝗲 👋 」
-└┬❖ 「 @${xeonName.split("@")[0]}  」
-   │✑  𝗟𝗲𝗳𝘁 
-   │✑ ${metadata.subject}
-   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
-   │✑ ${xeonmembers}th
-   │✑  𝗧𝗶𝗺𝗲 : 
-   │✑  ${xeontime} ${xeondate}
-   └───────────────┈ ⳹`
-let buttons = [
-{buttonId: `wkwkwk`, buttonText: {displayText: 'Sayonara 🥀'}, type: 1}
-]
-let buttonMessage = {
-document: fs.readFileSync('./XeonMedia/theme/cheems.xlsx'),
-mimetype: docs,
-jpegThumbnail:XeonLft,
-mentions: [num],
-fileName: `${metadata.subject}`,
-fileLength: 99999999999999,
-caption: xeonbody,
-footer: `${botname}`,
-buttons: buttons,
-headerType: 4,
-contextInfo:{externalAdReply:{
-title: `${ownername}`,
-body: `Bye! my friend, take care.`,
-mediaType:2,
-thumbnail: XeonLft,
-sourceUrl: `${websitex}`,
-mediaUrl: `${websitex}`
-}}
-}
-XeonBotInc.sendMessage(anu.id, buttonMessage, {quoted:unicorndoc})
-                }
-            }
-        } catch (err) {
-            console.log(err)
-        }
-    })
-	
-    // Setting
-    XeonBotInc.decodeJid = (jid) => {
-        if (!jid) return jid
-        if (/:\d+@/gi.test(jid)) {
-            let decode = jidDecode(jid) || {}
-            return decode.user && decode.server && decode.user + '@' + decode.server || jid
-        } else return jid
-    }
-    
-    XeonBotInc.ev.on('contacts.update', update => {
-        for (let contact of update) {
-            let id = XeonBotInc.decodeJid(contact.id)
-            if (store && store.contacts) store.contacts[id] = { id, name: contact.notify }
-        }
-    })
+        
 
     XeonBotInc.getName = (jid, withoutContact  = false) => {
         id = XeonBotInc.decodeJid(jid)
