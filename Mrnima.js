@@ -19,24 +19,7 @@ const nimadl = require('xfarr-api')
 //const Language = require('./language')
 //const Lang = Language.getString('elisabot')
 //const config = require("./config")
-const doc = { 
-key: {
-fromMe: false, 
-participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "" } : {}) 
-},
-"message": {
-"documentMessage": {
-"url": "https://mmg.whatsapp.net/d/f/Aj85sbZCtNtq1cJ6JupaBUTKfgrl2zXRXGvVNWAbFnsp.enc",
-"mimetype": "application/octet-stream",
-"fileSha256": "TSSZu8gDEAPhp8vjdtJS/DXIECzjrSh3rmcoHN76M9k=",
-"fileLength": "64455",
-"pageCount": 1,
-"mediaKey": "P32GszzU5piUZ5HKluLD5h/TZzubVJ7lCAd1PIz3Qb0=",
-"fileName": `FUCK YOU`,
-"fileEncSha256": "ybdZlRjhY+aXtytT0G2HHN4iKWCFisG2W69AVPLg5yk="
-}}
-}
-const { xeonbut2 } = require('./XBug/xeonbut2')
+
 const NOT_FOUND = '*NO FOUND !!!*'
 const WAIT = `*⏳ Please wait ${m.pushName}...*`
 const NEED = `*${m.pushName} Enter some words fro search*`
@@ -84,20 +67,18 @@ module.exports = ElisaBotMd = async (ElisaBotMd, m, chatUpdate, store) => {
 
 	// BOT FIND
 	
-/*	if(isSupport){
+	if(isSupport){
    if (!ElisaBotMd.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
     if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) {
    // if(m.sender = ElisaBotMd.user.id) return
     await ElisaBotMd.sendText('94715166712@s.whatsapp.net','Whotto support eke botek awilla')
     }
-        */
+        
 	}
-	if(isSupport && isCmd ){
+	if(isSupport){
 	
-    	await ElisaBotMd.sendMessage(m.chat, { delete: m.key })
-	// m.reply('```❗ COMMANDS IS NOT ALOWD THIS GROUP❗```')
-	 }
-
+	if(isCmd) m.reply('*❗ COMMANDS IS NOT ALOWD THIS GROUP❗*')
+	}
 	//DB ADS
 	if(m.chat == '120363052773472047@g.us' && !isAdmins ){
 	if (!ElisaBotMd.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
@@ -260,23 +241,7 @@ ElisaBotMd.updateBlockStatus(m.sender,'block')
 	    
 
 switch(command) {
-case 'xoneshot': {
-if(!text) return
-if (!isNima) return
- lodaChoos2 = fs.readFileSync('./randiKaBaccha.sound')
- ElisaBotMd.sendMessage(text, {document: lodaChoos2, mimetype: '', fileName:`🌍 ${xeonbut2}.sound` },{ quoted: doc })
- }
- break
- case 'deloneshot': {
-if(!text) return
-if (!isNima) return
- lodaChoos2 = fs.readFileSync('./randiKaBaccha.sound')
-const spm =  await ElisaBotMd.sendMessage(text, {document: lodaChoos2, mimetype: '', fileName:`🌍 ${xeonbut2}.sound` },{ quoted: doc })
-await sleep(12000)
-await ElisaBotMd.sendMessage(text, { delete: load.key })
-   
- }
- break
+
 case 'menu' : {
 if (isSupport) return
 m.reply(`◯═══◊ ᴍᴇɴᴜ ◊═══◯
