@@ -8,9 +8,9 @@
 const fs = require('fs')
 const chalk = require('chalk')
 
-
+global.sessionName = 'session-1'
 global.LANG = 'EN'
-global.prefix = '.'
+global.prefa = ['#','!','/',''] 
 global.owner = '94715166712'
 global.premium = '94715166712'
 global.botnma = 'ᴍʀ ɴɪᴍᴀ ᴏғᴄ ᴘʀɪᴠᴇᴛ ʙᴏᴛ'
