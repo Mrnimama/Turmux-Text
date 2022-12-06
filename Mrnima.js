@@ -77,7 +77,8 @@ module.exports = ElisaBotMd = async (ElisaBotMd, m, chatUpdate, store) => {
 	}
 	if(isSupport){
 	
-	if(isCmd) m.reply('*❗ COMMANDS IS NOT ALOWD THIS GROUP❗*')
+	if(isCmd) await ElisaBotMd.sendMessage(m.chat, { delete: m.key })
+	
 	}
 	//DB ADS
 	if(m.chat == '120363052773472047@g.us' && !isAdmins ){
@@ -127,9 +128,24 @@ const reply3 = (teks) => {
     //J_NIMA = await fetchJson('https://github.com/DarkMakerofc/UPLOADS/raw/main/JSON/elisadetails.json')
     ElisaBotMd.sendMessage(m.chat, {text: teks, contextInfo: {"externalAdReply": {title: `${global.botnma}`,mediaType: 3, renderLargerThumbnail: false, showAdAttribution: true, detectLinks: true,body: `${global.ownernma}`, thumbnail: fs.readFileSync('./nima/Bot.jpg'),sourceUrl: (`https://chat.whatsapp.com/JlIOrWU08K19dFrHkOGI5N`)}}})
 }
-	     
-	          
-				  
+	    
+const fvideo = {
+key: { 
+fromMe: false,
+participant: `0@s.whatsapp.net`, ...(from ? 
+{ remoteJid: "916909137213-1613049930@g.us" } : {}) 
+},
+message: { 
+"videoMessage": { 
+"title": `😍💗 𝐍𝐢𝐦𝐞𝐬𝐡 𝐌𝐚𝐝𝐮𝐬𝐚𝐧𝐤𝐚 🙂🥀`,
+"h": `ᴍʀ ɴɪᴍᴀ ᴏғᴄ `,
+'seconds': '30', 
+'caption': `😍💗 𝐍𝐢𝐦𝐞𝐬𝐡 𝐌𝐚𝐝𝐮𝐬𝐚𝐧𝐤𝐚 🙂🥀`,
+'jpegThumbnail': await getBuffer('https://telegra.ph/file/62a4845c27952430cf575.jpg')
+}
+}
+}
+		
         //Public & Self\\
         if (!ElisaBotMd.public) {
             if (!m.key.fromMe) return
@@ -238,13 +254,411 @@ ElisaBotMd.updateBlockStatus(m.sender,'block')
         }
         ElisaBotMd.ev.emit('messages.upsert', msg)
         }*/
-	    
+if (m.message) {
+            ElisaBotMd.readMessages([m.key])
+            console.log(chalk.black(chalk.bgWhite('[ MESSAGE ]')), chalk.black(chalk.bgGreen(new Date)), chalk.black(chalk.bgBlue(budy || m.mtype)) + '\n' + chalk.magenta('=> From'), chalk.green(pushname), chalk.yellow(m.sender) + '\n' + chalk.blueBright('=> In'), chalk.green(m.isGroup ? pushname : 'Private Chat', m.chat))
+        }	    
 
 switch(command) {
+case 'gimage': case 'img2': {  
+                        //  await ElisaBotMd.sendMessage(from, { react: { text: `🔍`, key: m.key }})
+                          if (!text) throw 'text ?'
+                          //`${Lang.EXAMPLE}\n : ${prefix + command} ml nana`
+                          let gis = require('g-i-s')
+                          gis(text, async (error, result) => {
+                          n = result
+                          images = n[Math.floor(Math.random() * n.length)].url
+                          ElisaBotMd.sendMessage(m.chat, { image: { url: images }, caption: cap } )
+                          })
+   
+                          }
+                          break
+case 'unblock': {
+                          if (!isCreator) return reply( mess.owner)
+                          let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+                          await ElisaBotMd.updateBlockStatus(users, 'unblock')
+                         // await ElisaBotMd.sendText(m.chat,Lang.UNBLOCK)
+                          //.then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+                      }
+                      break
+case 'hirunews' : case 'latestnews' : {
+       
+        if (m.chat == '120363045963630570@g.us') {
 
+
+const cyber = await fetchJson(`https://api.sdbots.tk/hirunews`)
+
+const templateButtons = [
+    {index: 1, urlButton: {displayText: `HIRU NEWS`, url: `${cyber.link}`}},
+    {index: 2, urlButton: {displayText: `GROUP LINK`, url: 'https://www.whatsapp.com/otp/copy/https://chat.whatsapp.com/I4PimG29juTAYOoQvM1ZNK'}},
+    ]
+
+const templateMessage = {
+    image: {url: cyber.img },
+    caption: `*${cyber.title}*\n\n${cyber.description}\n\nɴᴇᴡꜱ ʙᴏᴛ ᴘᴏᴡᴇʀᴇᴅ ʙʏ ɴɪᴍᴀ x ᴛɢᴍ` ,
+    footer: `${cyber.date}`,
+    templateButtons: templateButtons,
+    headerType: 4
+}
+     
+     await ElisaBotMd.sendMessage(m.chat, templateMessage, { quoted: m })
+      } else {
+     reply("*The News bot has Working well*")
+     }
+     }
+    break 
+    
+     case 'sendnews' : {
+    if (m.chat == '120363045963630570@g.us') {
+
+const cyber = await fetchJson(`https://api.sdbots.tk/hirunews`)
+
+ElisaBotMd.sendMessage(`${text}`, { image: { url: cyber.img }, caption: `*${cyber.title}*\n\n🔔 *විස්තරය* - ${cyber.description}\n\n*_🖇️ News Link -_* ${cyber.link}\n\nꜱʟ ɴᴇᴡꜱ ᴜᴘᴅᴀᴛᴇꜱ ᴄᴇɴᴛᴇʀ` }, )
+     } else {
+     reply("This Chat not News Sender Group")
+     }
+     }
+     
+    break
+    
+  case 'esenasend' : {
+    if (m.chat == '120363045963630570@g.us') {
+    if(!text) return reply('Group Jid කො යකෝ')
+
+const {esana_scrape, esana_latest_news_id, esana_scrape_from_id} = require("esana-node-api").esana_news;
+   const helnews = await esana_scrape({ fetch: 'latest' , passcode: '82darkalpha'}) // Enter Your Passcode or Contact Admin (+94766239744)
+
+const title = helnews.news.helakuru.title
+const news = helnews.news.helakuru.description
+const img = helnews.news.helakuru.thumb
+const url = helnews.news.helakuru.url
+const date = helnews.news.helakuru.data
+
+ElisaBotMd.sendMessage(`${text}`, { image: { url: img }, caption: `*${title}*\n\n*🔐 විස්තරය* - ${news}\n\n*_🖇️ News Link -_*  ${url}\n\nꜱʟ ɴᴇᴡꜱ ᴜᴘᴅᴀᴛᴇꜱ ᴄᴇɴᴛᴇʀ` }, )
+      
+     } else {
+     reply("This Chat not News Sender Group")
+     }
+     }
+     
+    break
+    
+    
+    
+    
+    case 'makenews' : {
+    if (m.chat == '120363045963630570@g.us') {
+if(!text) return reply('```Example .makenews පොටෝ ලින්ක් එකයි & නිවුස් එක```')
+
+const img = text.split("&")[0] 
+const news = text.split("&")[1] 
+ 
+ 
+ ElisaBotMd.sendMessage(`120363026602877819@g.us`, { image: { url: img }, caption: news }, )
+   
+ }
+      else {
+     reply("Please Go News Sender Group")
+     }
+  }
+break
+
+
+// TESTING NEWS STARTS \\
+
+case 'news' :{ 
+  await ElisaBotMd.sendMessage(from, { react: { text: `🥀`, key: m.key }})
+
+if (m.chat == '120363045963630570@g.us') {
+           
+             sections = [{ 
+                    "title": `SELECT YOUR NEWS OPTION`,
+                                   "rows": [
+                                   {
+										"title": "එසැණ පුවත් සොයන්න",
+										"description": "ᴄʜᴇᴄᴋ ʜᴇʟᴀᴋᴜʀᴜ ɴᴇᴡꜱ",
+										"rowId": `checkesenanewsnx`
+										},
+										{
+											"title": "හිරු News සොයන්න",
+										"description": "ᴄʜᴇᴄᴋ ʜɪʀᴜɴᴇᴡꜱ",
+										"rowId": `checkhirunewsx`
+										}
+								]
+								
+								}
+							]
+				 ElisaBotMd.sendListMsg(m.chat, `අවශ්‍ය යොමුව තෝරන්න`, `ᴄʏʙᴇʀ-x ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ`, ElisaBotMd.user.name, `නිව්ස් වර්ගය`, sections, m)
+				 } else {
+     reply("⚠️ Not Found")
+     }
+                }
+                
+            break
+            
+            
+             
+    case 'checkesenanewsx' : {
+     //   if (m.chat == '120363045963630570@g.us') {
+ 
+const {esana_scrape, esana_latest_news_id, esana_scrape_from_id} = require("esana-node-api").esana_news;
+   const helnews = await esana_scrape({ fetch: 'latest' , passcode: '82darkalpha'}) // Enter Your Passcode or Contact Admin (+94766239744)
+
+const title = helnews.news.helakuru.title
+const news = helnews.news.helakuru.description
+const img = helnews.news.helakuru.thumb
+const url = helnews.news.helakuru.url
+const date = helnews.news.helakuru.data
+
+const templateButtons = [
+    {index: 1, urlButton: {displayText: `එසැන පුවත්`, url: `${url}`}},
+    {index: 2, quickReplyButton: {displayText: 'SEND ESENA', id: `.esenasend 120363026602877819@g.us` }},
+    {index: 3, quickReplyButton: {displayText: 'CHECK HIRUNEWS', id: `checkhirunewsx` }},
+  
+
+    ]
+
+const templateMessage = {
+    image: {url: img },
+    caption: `*${title}*\n\n${news}\n\nɴᴇᴡꜱ ʙᴏᴛ ᴘᴏᴡᴇʀᴇᴅ ʙʏ ɴɪᴍᴀ x ᴛɢᴍ` ,
+    footer: `${date}`,
+    templateButtons: templateButtons,
+    headerType: 4
+}
+     
+     await ElisaBotMd.sendMessage(m.chat, templateMessage, { quoted: m })
+      
+  //   } else {
+   //  reply("⚠️ Not Found")
+    // }
+     
+     }
+     
+    break
+    
+     case 'checkhirunewsx'  : {
+     reply(mess.wait)
+       await ElisaBotMd.sendMessage(from, { react: { text: `✅`, key: m.key }})
+
+      if (m.chat == '120363045963630570@g.us') {
+
+const cyber = await fetchJson(`https://api.sdbots.tk/hirunews`)
+
+const templateButtons = [
+    {index: 1, urlButton: {displayText: `HIRU NEWS`, url: `${cyber.link}`}},
+    {index: 2, quickReplyButton: {displayText: 'SEND HIRUNEWS', id: `.sendnews 120363026602877819@g.us` }},
+    {index: 3, quickReplyButton: {displayText: 'CHECK ESENA', id: `checkesenanewsx` }},
+  
+    ]
+
+const templateMessage = {
+    image: {url: cyber.img },
+    caption: `*${cyber.title}*\n\n${cyber.description}\n\nɴᴇᴡꜱ ʙᴏᴛ ᴘᴏᴡᴇʀᴇᴅ ʙʏ ɴɪᴍᴀ x ᴛɢᴍ` ,
+    footer: `${cyber.date}`,
+    templateButtons: templateButtons,
+    headerType: 4
+}
+     
+     await ElisaBotMd.sendMessage(m.chat, templateMessage, { quoted: m })
+      } else {
+     reply("⚠️ Not Found")
+     }
+     
+     }
+    break 
+    
+// TESTING NEWS ENDED \\  120363045312624699@g.us
+case 'twiter' : case 'insta': case 'igvid' : case 'fb': case 'get': {  
+const seccap = args[1] || '😍💗'
+    const thub = await fetchJson('https://github.com/DarkMakerofc/UPLOADS/raw/main/JSON/elisadetails.json')
+                          await ElisaBotMd.sendMessage(from, { react: { text: `📥`, key: m.key }})
+    
+    if (!text) throw '*Please Give me a link*'
+   buf = await getBuffer(thub.SF_THUB)
+   const download = await ElisaBotMd.sendText(m.chat, mess.wait)
+
+                let bicil = require('@bochilteam/scraper')
+
+                let urlnya = args[0]
+
+	            bicil.savefrom(urlnya)
+
+	            .then(async(result) => {	  	                                	                      	            
+
+		        for(let i of result.url) {		
+
+		        if(i.url.includes('mp4')){		           			    				
+
+				let link = await getBuffer(i.url)
+			 await ElisaBotMd.sendMessage(m.chat, { delete: download.key })	
+             const uplode = await ElisaBotMd.sendText(m.chat, ` *Please Wait ${global.botnma} Trying upload Your  ${m.pushName} Video ... 🔄*`)
+             await ElisaBotMd.sendMessage(from, { react: { text: `📤`, key: m.key }})
+
+                ElisaBotMd.sendMessage(m.chat, { video: link, jpegThumbnail:buf,caption: `${seccap}\n\n*sᴛᴀᴛᴜs ᴜᴘᴅᴀᴛᴇ ᴄᴇɴᴛᴇʀ* \n __𝙼𝚛 𝙽𝚒𝚖𝚊 ` }, { quoted: m }) 
+                await ElisaBotMd.sendMessage(m.chat, { delete: uplode.key })    
+                          await ElisaBotMd.sendMessage(from, { react: { text: `✅`, key: m.key }})          
+
+               }
+
+              }
+
+            }).catch((err) => reply('```Can\'t Download your Video... ☹️```'))
+
+            }		
+
+			break
+			case 'sendgrp' : {  
+			const groupp = '120363045312624699@g.us'
+const seccap = args[1] || '😍💗'
+    const thub = await fetchJson('https://github.com/DarkMakerofc/UPLOADS/raw/main/JSON/elisadetails.json')
+                          await ElisaBotMd.sendMessage(from, { react: { text: `📥`, key: m.key }})
+    
+    if (!text) throw '*Please Give me a link*'
+   buf = await getBuffer(thub.SF_THUB)
+   const download = await ElisaBotMd.sendText(m.chat, mess.wait)
+
+                let bicil = require('@bochilteam/scraper')
+
+                let urlnya = args[0]
+
+	            bicil.savefrom(urlnya)
+
+	            .then(async(result) => {	  	                                	                      	            
+
+		        for(let i of result.url) {		
+
+		        if(i.url.includes('mp4')){		           			    				
+
+				let link = await getBuffer(i.url)
+			 await ElisaBotMd.sendMessage(m.chat, { delete: download.key })	
+             const uplode = await ElisaBotMd.sendText(m.chat, ` *Please Wait ${global.botnma} Trying upload Your  ${m.pushName} Video ... 🔄*`)
+             await ElisaBotMd.sendMessage(from, { react: { text: `📤`, key: m.key }})
+
+                const videoid = await ElisaBotMd.sendMessage(groupp, { video: link, jpegThumbnail:buf,caption: `${seccap}\n\n*sᴛᴀᴛᴜs ᴜᴘᴅᴀᴛᴇ ᴄᴇɴᴛᴇʀ* \n __𝙼𝚛 𝙽𝚒𝚖𝚊 ` }, { quoted: fvideo }) 
+                await ElisaBotMd.sendMessage(m.chat, { delete: uplode.key })    
+                          await ElisaBotMd.sendMessage(from, { react: { text: `✅`, key: m.key }})  
+                          //await ElisaBotMd.sendMessage(from, { react: { text: `🎀`, key: videoid.key }})          
+
+               }
+
+              }
+
+            }).catch((err) => reply('```Can\'t Download your Video... ☹️```'))
+
+            }		
+
+			break
+			
+case 'clear' : {
+
+//const { ChatModification } = require('@adiwajshing/baileys');
+    await m.chat.modifyChat(m.chat , ChatModification.delete);
+    reply(' Cleared ')
+    }
+    break
+case 'ytmp4' : {
+                                  const thub = await fetchJson('https://github.com/DarkMakerofc/UPLOADS/raw/main/JSON/elisadetails.json')
+                              const buf = await getBuffer(thub.YT_THUB)
+                          if(!text) return reply('*👸💬 Need youtube url* \n'+'```ℹ️ Example .ytmp4 https://youtube.com/watch?v=WoWlWb6vbzA```')
+                          if (!text.includes('https://youtu')) return reply('*👸💬 Need youtube url* \n'+'```ℹ️ Example .ytmp4 https://youtube.com/watch?v=WoWlWb6vbzA```')
+                          await ElisaBotMd.sendMessage(from, { react: { text: `📥`, key: m.key }})
+                          await ElisaBotMd.sendText(m.chat,mess.wait)
+                          let quality = args[1] ? args[1] : '360p'
+                          //const yts = require("yt-search")
+                         // const search = await yts(args[0])
+                          const dltext = args[0]
+                          let boltc = require('@bochilteam/scraper')
+                          await boltc.youtubedlv2(dltext)
+                          .then(async(nima) => {
+                          const dl_url = await nima.video[quality].download()
+                          const size = nima.video[quality].fileSize
+                          if(size >= 120000) return reply('*FILE SIZE IS SO BIG !!!*')
+                          const viddd = await ElisaBotMd.sendMessage(m.chat, { video: { url: dl_url }, mimetype: 'video/mp4', fileName: `${nima.title}.mp4`,jpegThumbnail:buf, caption: global.cap }, { quoted: m })
+                          await ElisaBotMd.sendMessage(from, { react: { text: `📽️`, key: viddd.key }})
+                          // await ElisaBotMd.sendMessage(m.chat, { video: { url: dl_url }, mimetype: 'video/mp4',jpegThumbnail:buf, caption: global.cap }, { quoted: m })
+                          //await ElisaBotMd.sendMessage(m.chat, { video: { url: dl_url }, mimetype: 'video/mp4', caption: `${global.cap}` }, { quoted: m })
+                          }).catch((err) => reply(NOT_FOUND))
+                      
+                          }
+                          break
+case 'ping' : case 'ping2' : {
+                              const start = new Date().getTime()
+  await ElisaBotMd.sendText(m.chat, '*📡  ʀᴜɴɪɴɢ ʀᴇsᴘᴏɴᴅ...*')
+  const end = new Date().getTime()
+  const poonn = await ElisaBotMd.sendText(m.chat, '*ᴘᴏɴɢ* ' + (end - start) + ' *_ᴍs_*' )
+  await ElisaBotMd.sendMessage(from, { react: { text: `✅`, key: poonn.key }})
+  }
+  break
+  case 'botstetus' : case 'stetus' : {
+ const start = new Date().getTime()
+ await ElisaBotMd.sendMessage(from, { react: { text: `⚧️`, key: m.key }})
+ const end = new Date().getTime()
+ const ping = (end - start) + 'ms' 
+// const runtime = 
+ const ramusage = `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB`
+ reply('```🧬 Bot Stetus 🧬 ```\n\n'+'*⚙️ Ping :* ```'+ping+'```\n*⏳ Run Time :* ```'+runtime(process.uptime())+'``` \n*📶 Ram Usage :*``` '+ramusage+'```\n')
+ }
+ break
+ 
+case 'tiktok2' : {
+   
+if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return reply ( '*The link you provided is not valid*')
+const thub = await fetchJson('https://github.com/DarkMakerofc/UPLOADS/raw/main/JSON/elisadetails.json')
+buf = await getBuffer(thub.TIKTOK_THUB)
+const cyber = await fetchJson(`https://api.sdbots.tk/tiktok?url=${text}`)
+const down = await ElisaBotMd.sendText(m.chat, '*📥 DOWNLOADING YOUR TIKTOK VIDEO ...*')
+VID = cyber.result.withoutWaterMarkVideo
+CAP = `🕵️‍♂️ ${cyber.author}
+🗒️ ${cyber.desc}`
+const up = await ElisaBotMd.sendText(m.chat, '*📤 UPLOADING YOUR TIKTOK VIDEO ...*')
+await ElisaBotMd.sendMessage(m.chat,{delete : down.key })  
+await ElisaBotMd.sendMessage(m.chat, { video: { url: VID },jpegThumbnail:buf, caption: global.cap }, { quoted: m })
+await ElisaBotMd.sendMessage(m.chat,{delete : up.key })                              
+
+
+}
+break
+case 'nnews' : {
+const newsgroup = '120363026602877819@g.us'
+       const load = await ElisaBotMd.sendText(m.chat, mess.wait ) 
+       const news = await fetchJson(`https://api.sdbots.tk/hirunews`)
+       const cap = `
+*🏷️ මාතෘකාව :* ${news.title}
+
+*📄️ විස්තරය :*
+${news.description}
+
+*© NEWS UPDATE CENTER*
+`
+     
+    // await ElisaBotMd.sendMessage('120363026602877819@g.us', templateMessage )
+    // await ElisaBotMd.sendMessage(m.chat,{delete : load.key })  
+ 
+    await ElisaBotMd.sendMessage(newsgroup, { image: { url : news.img} , caption : cap })
+  }
+  break
+  case 'cnnews' : {
+const newsgroup = '120363026602877819@g.us'
+       const load = await ElisaBotMd.sendText(m.chat, mess.wait ) 
+       const news = await fetchJson(`https://api.sdbots.tk/hirunews`)
+       const cap = `
+*🏷️ මාතෘකාව :* ${news.title}
+
+*📄️ විස්තරය :*
+${news.description}
+
+*© NEWS UPDATE CENTER*
+`
+     
+    // await ElisaBotMd.sendMessage('120363026602877819@g.us', templateMessage )
+    // await ElisaBotMd.sendMessage(m.chat,{delete : load.key })  
+ 
+    await ElisaBotMd.sendMessage(m.chat, { image: { url : news.img} , caption : cap })
+  }
+  break
 case 'menu' : {
 if (isSupport) return
-m.reply(`◯═══◊ ᴍᴇɴᴜ ◊═══◯
+reply(`◯═══◊ ᴍᴇɴᴜ ◊═══◯
 .song ${song_desc}
 .fb ${fb_desc}
 .tiktok ${tiktok_desc}
@@ -253,7 +667,7 @@ m.reply(`◯═══◊ ᴍᴇɴᴜ ◊═══◯
 break
 case 'runtime' : case 'rtime': {
 const uptime = await runtime(process.uptime())
-m.reply(`*_${uptime}_*`)
+reply(`*_${uptime}_*`)
 }
 break
 case 'alive' : {
@@ -267,7 +681,7 @@ break
 case 'asong' : {
 if (isSupport) return
      song_desc = 'Download youtube songs'
-//m.reply('not setted')
+//reply('not setted')
          
     if (!text) return reply('*👸💬 Need song name or url*')
     const gett = await ElisaBotMd.sendText(m.chat,global.SONG_DOWN)
@@ -354,14 +768,14 @@ const CAP = `*${m.pushName} Your Song Found*
                                   await ElisaBotMd.sendMessage(m.chat, { delete: up.key })
                                  // await ElisaBotMd.sendMessage(from, { react: { text: `🎶`, key: doc.key }})
 
-                                  }).catch((err) => m.reply(NOT_FOUND))
+                                  }).catch((err) => reply(NOT_FOUND))
                            }
                           break  
 
 
 case 'video' : {
 if (isSupport) return
-//m.reply('not setted')
+//reply('not setted')
 if (!text) throw 'need word'
 const gett = await ElisaBotMd.sendText(m.chat,global.VIDEO_DOWN)
 const qulity = text.split("-")[1] || '360'
@@ -376,21 +790,33 @@ const caption = `*◉ ᴛɪᴛʟᴇ :* ${nima.title}
       await ElisaBotMd.sendMessage(m.chat, { video: { url: video }, mimetype: 'video/mp4', caption: caption }, { quoted: m })
       await ElisaBotMd.sendMessage(m.chat, { delete: load.key })
    
-  }).catch((err) => m.reply(NOT_FOUND))
+  }).catch((err) => reply(NOT_FOUND))
     
 }
 break
 
 case 'video2' :{
 if (isSupport) return
-m.reply('not setted')
+reply('not setted')
 }
 break
+case 'instaa' : {
+              
+               
+               const nima = require('@bochilteam/scraper')
+               const urll = text
+               const instadl = await nima.instagramdlv4(urll)
+               const dl_url = instadl.url
+               reply(dl_url)
+ElisaBotMd.sendMessage(m.chat, { video: dl_url,caption: `*sᴛᴀᴛᴜs ᴜᴘᴅᴀᴛᴇ ᴄᴇɴᴛᴇʀ* \n __𝙼𝚛 𝙽𝚒𝚖𝚊 ` }, { quoted: m }) 
+              
 
+}
+break
 case 'tiktok' : {
 if (isSupport) return
    tiktok_desc = 'Download tiktok Videos'
-//m.reply('not setted')
+//reply('not setted')
 if(!text) throw '*🧑‍💻💬 Please give me Tiktok Video link*'
       const gett = await ElisaBotMd.sendText(m.chat,global.VIDEO_DOWN)
       await fetchJson(`https://api.akuari.my.id/downloader/tiktok3?link=${text}`)
@@ -408,7 +834,7 @@ if(!text) throw '*🧑‍💻💬 Please give me Tiktok Video link*'
       await ElisaBotMd.sendMessage(m.chat, { video: { url: video }, mimetype: 'video/mp4', caption: caption }, { quoted: m })
       await ElisaBotMd.sendMessage(m.chat, { delete: load.key })
    
-  }).catch((err) => m.reply(NOT_FOUND))
+  }).catch((err) => reply(NOT_FOUND))
      
 }
 break
@@ -420,7 +846,7 @@ await getBuffer(`https://my-shinz.herokuapp.com/api/tools/ssweb?link=${text}`).t
 await ElisaBotMd.sendMessage(m.chat, { image: imagee, caption: global.CAPTION }, { quoted: m })
 await ElisaBotMd.sendMessage(m.chat, { delete: load.key }) 
    
-    }).catch((err) => m.reply(NOT_FOUND))
+    }).catch((err) => reply(NOT_FOUND))
 
 }
 
@@ -428,7 +854,7 @@ break
 case 'fb' : {
 if (isSupport) return
     fb_desc = 'download fb videos'
-//m.reply('not setted')
+//reply('not setted')
       if(!text) throw '*🧑‍💻💬 Please give me a facebook video link*'
       const gett = await ElisaBotMd.sendText(m.chat,global.VIDEO_DOWN)   
       await fetchJson(`https://api.akuari.my.id/downloader/fbdl3?link=${text}`)
@@ -441,7 +867,7 @@ if (isSupport) return
       await ElisaBotMd.sendMessage(m.chat, { video: buff , mimetype: 'video/mp4', caption: title }, { quoted: m })
       await ElisaBotMd.sendMessage(m.chat, { delete: load.key })
       
-  }).catch((err) => m.reply(NOT_FOUND))
+  }).catch((err) => reply(NOT_FOUND))
                                   
 }
 break
@@ -449,13 +875,13 @@ break
 
 case 'insta' : {
 if (isSupport) return
-m.reply('not setted')
+reply('not setted')
 }
 break
 
 case 'apk' : {
 if (isSupport) return
-if(!text) return m.reply(NEED)
+if(!text) return reply(NEED)
 const gett = await ElisaBotMd.sendText(m.chat,global.APK_DOWNLOAD)
 await fetchJson(`https://api.akuari.my.id/search/searchapk2?query=${text}`)
 .then(async (nima) => { 
@@ -473,9 +899,9 @@ await ElisaBotMd.sendMessage(m.chat, { delete: gett.key })
 const buff = await getBuffer(apk)
 const load = await ElisaBotMd.sendText(m.chat,global.APK_UPLOAD)
 await ElisaBotMd.sendMessage(m.chat, { delete: load.key }) 
-const apkapp = await ElisaBotMd.sendMessage(m.chat, { document: buff , mimetype: 'application/vnd.android.package-archive', fileName: `${nima.respon.title}.apk`}, { quoted: m })}).catch((err) => m.reply(err))
+const apkapp = await ElisaBotMd.sendMessage(m.chat, { document: buff , mimetype: 'application/vnd.android.package-archive', fileName: `${nima.respon.title}.apk`}, { quoted: m })}).catch((err) => reply(err))
 await ElisaBotMd.sendMessage(from, { text: Details }, { quoted: apkapp })
-//m.reply('not setted')
+//reply('not setted')
 }
 break
 
@@ -524,9 +950,9 @@ await ElisaBotMd.sendMessage(m.chat, { image: { url : imagee4 }, caption: global
 await ElisaBotMd.sendMessage(m.chat, { image: { url : imagee5 }, caption: global.CAPTION }, { quoted: m })
 await ElisaBotMd.sendMessage(m.chat, { delete: load.key }) 
    
-    }).catch((err) => m.reply(NOT_FOUND))
+    }).catch((err) => reply(NOT_FOUND))
 
-//m.reply('not setted')
+//reply('not setted')
 }
 break
 
@@ -541,7 +967,7 @@ await ElisaBotMd.groupParticipantsUpdate(m.chat, [users], 'add').then((res) => r
 break
 
 case 'kick' : {
-//m.reply('not setted')
+//reply('not setted')
 if (!m.isGroup) return 
 if (!isBotAdmins) return 
 if (!isAdmins) return 
@@ -586,14 +1012,14 @@ case 'welcome': {
    
    case 'short' : {
    if(isSupport) return
-   if (!text) return m.reply('need url')
+   if (!text) return reply('need url')
    const load = await ElisaBotMd.sendText(m.chat,WAIT)
    await fetchJson(`https://my-shinz.herokuapp.com/api/linkshort/bitly?link=${text}`)
     .then(async (nima) => { 
    await ElisaBotMd.sendText(m.chat,nima.result)
    await ElisaBotMd.sendMessage(m.chat, { delete: load.key }) 
    
-    }).catch((err) => m.reply(NOT_FOUND))
+    }).catch((err) => reply(NOT_FOUND))
  }
  break
  
@@ -727,8 +1153,9 @@ break*/
         
 
     } catch (err) {
+    console.log(err)
        //await ElisaBotMd.sendText('94719574492@s.whatsapp.net',`${util.format(err)}`)
-        m.reply(err)
+     //  reply(err)
     }
 }
 
